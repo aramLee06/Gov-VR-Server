@@ -1,0 +1,28 @@
+var cluster = require('cluster');
+var log 	= require('../lib/gameparty.common.logger');
+
+global.config = require('../config/config.json');
+
+if (cluster.isMaster) {
+	cluster.on('fork', function(worker){
+		log.i('Game Room Server ' + worker.id + ' created');
+	});
+	
+	cluster.on('listening', function(worker, address){
+		log.i('Game Room Server ' + worker.id + ' is listening on ' + address.port);
+	});
+	
+	cluster.on('exit', function(worker, code, signal){
+		log.i('Game Room Server ' + worker.id + ' exited');
+		cluster.fork();
+	});
+	
+	cluster.setupMaster({exec: __dirname + '/../lib/app_game.js'});
+	
+	var numCPUs = config.debug?1:require('os').cpus().length;
+
+	for(var i = 0; i < numCPUs; i++){
+		cluster.fork();
+	}
+}
+

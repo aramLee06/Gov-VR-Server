@@ -1,0 +1,186 @@
+{
+	"1" : {
+		"name" : "RT_ERROR_CONNECT", 
+		"description" : "연결 오류"
+		},
+	"2" : {
+		"name" : "RT_ERROR_INVALID_IDPW", 
+		"description" : "비정상적인 아이디, 비밀번호(빈문자열)"
+	},
+	"3" : {
+		"name" : "RT_ERROR_INVALID_ID", 
+		"description" : "비정상적인 아이디(빈문자열)"
+	},
+	"4" : {
+		"name" : "RT_ERROR_INVALID_PW", 
+		"description" : "패스워드 불일치"
+	},
+	"5" : {
+		"name" : "RT_ERROR_NOT_FOUND_USER", 
+		"description" : "아이디가 일치하는 사용자가 없습니다."
+	},
+	"6" : {
+		"name" : "RT_ERROR_SAVE_IMAGE", 
+		"description" : "이미지저장 에러"
+	},
+	"7" : {
+		"name" : "RT_ERROR_INVALID_UCODE", 
+		"description" : "비정상적인 유저코드(빈문자열)"
+	},
+	"8" : {
+		"name" : "RT_ERROR_NOT_FOUND_USER_BY_UCODE", 
+		"description" : "유저코드에 해당하는 사용자 정보가 없습니다."
+	},
+	"9" : {
+		"name" : "RT_ERROR_INVALID_LAUNCHER_ID", 
+		"description" : "비정상적인 런처 아이디(빈문자열)"
+	},
+	"10" : {
+		"name" : "RT_ERROR_INVALID_LAUNCHER_PW", 
+		"description" : "런처 패스워드 불일치"
+	},
+	"11" : {
+		"name" : "RT_ERROR_NOT_FOUND_LAUNCHER_BY_LCODE", 
+		"description" : "런처코드에 해당하는 런처 정보가 없습니다."
+	},
+	"12" : {
+		"name" : "RT_ERROR_DELETE_USER_PROFILE", 
+		"description" : "유저 프로파일 삭제 실패 (유저정보 업데이트 되는 Row없슴)"
+	},
+	"13" : {
+		"name" : "RT_ERROR_INVALID_LAUNCHER_IDPW", 
+		"description" : "비정상적인 런처 아이디, 비밀번호, 플랫폼(빈문자열)"
+	},
+	"14" : {
+		"name" : "RT_ERROR_DUPLICATE_ID", 
+		"description" : "아이디가 사용중입니다."
+	},
+	"16" : {
+		"name" : "RT_ERROR_NOT_FOUND_LAUNCHER_BY_ID", 
+		"description" : "아이디가 일치하는 런처가 없습니다."
+	},
+	"18" : {
+		"name" : "RT_ERROR_NO_GAME_LIST", 
+		"description" : "게임 목록이 없습니다."
+	},
+	"19" : {
+		"name" : "RT_ERROR_NOT_EXIST_GAME_DATA", 
+		"description" : "게임 데이타가 없습니다."
+	},
+	"20" : {
+		"name" : "RT_ERROR_DB_CONNECTION", 
+		"description" : "디비연결 불가"
+	},
+	"21" : {
+		"name" : "RT_ERROR_DB_SQL_QUERY", 
+		"description" : "SQL Query Error"
+	},
+	"22" : {
+		"name" : "RT_ERROR_NO_REQUEST_PARAMETERS", 
+		"description" : "Request Parameter 변수값이 없습니다."
+	},
+	"23" : {
+		"name" : "RT_ERROR_IMAGE_SAVE", 
+		"description" : "이미지 저장 에러"
+	},
+	"24" : {
+		"name" : "RT_ERROR_IMAGE_TYPE", 
+		"description" : "이미지 타입 에러"
+	},
+	"25" : {
+		"name" : "RT_ERROR_SNS_LOGIN", 
+		"description" : "SNS 아이디 로그인 데이타 에러"
+	},
+	"26" : {
+		"name" : "RT_ERROR_SNS_NO_DATA", 
+		"description" : "SNS 아이디 데이타 에러"
+	},
+	"10000" : {
+		"name" : "LS_ERROR_CONNECT", 
+		"description" : "연결 오류"
+	},
+	"10001" : {
+		"name" : "LS_ERROR_NOT_EXIST_ROOM", 
+		"description" : "방이 존재하지 않음."
+	},
+	"10002" : {
+		"name" : "LS_ERROR_SAME_SOCKET_USER", 
+		"description" : "같은 유저가 접속해 있음"
+	},
+	"10003" : {
+		"name" : "LS_ERROR_MAX_USER", 
+		"description" : "방에 입장 가능한 최대인원 초과."
+	},
+	"10004" : {
+		"name" : "LS_ERROR_ALREADY_START", 
+		"description" : "이미 게임이 시작됨."
+	},
+	"19999" : {
+		"name" : "LS_ERROR_UNKNOWN", 
+		"description" : "정의 되지 않은 에러."
+	},
+	"20000" : {
+		"name" : "RS_ERROR_CONNECT", 
+		"description" : "연결 오류"
+	},
+	"20001" : {
+		"name" : "RS_ERROR_MAX_USER", 
+		"description" : "방에 입장 가능한 최대인원 초과."
+	},
+	"20002" : {
+		"name" : "RS_ERROR_ALREADY_START", 
+		"description" : "이미 게임이 시작됨."
+	},
+	"20003" : {
+		"name" : "RS_ERROR_NOT_EXIST_ROOM", 
+		"description" : "방이 존재하지 않음."
+	},
+	"29999" : {
+		"name" : "RS_ERROR_UNKNOWN", 
+		"description" : "정의되지 않은 에러."
+	},
+	"30000" : {
+		"name" : "UX_ERROR_", 
+		"description" : "연결 오류"
+	},
+	"40000" : {
+		"name" : "LB_ERROR_", 
+		"description" : "연결 오류"
+	},
+	"50000" : {
+		"name" : "CR_ERROR_", 
+		"description" : "연결 오류"
+	},
+	"60000" : {
+		"name" : "LC_ERROR_NETWORK_CONNECT", 
+		"description" : "인터넷 연결 오류"
+	},
+	"60001" : {
+		"name" : "LC_ERROR_REST_CONNECT", 
+		"description" : "REST 연결 오류"
+	},
+	"60002" : {
+		"name" : "LC_ERROR_SOCKET_CONNECT", 
+		"description" : "SOCKET 연결 오류"
+	},
+	"60003" : {
+		"name" : "LC_ERROR_REST_METHOD", 
+		"description" : "REST METHOD 오류"
+	},
+	"60004" : {
+		"name" : "LC_ERROR_REST_API", 
+		"description" : "REST API 오류"
+	},
+	"60005" : {
+		"name" : "LC_ERROR_UNFOUND_GAMEPACKAGE", 
+		"description" : "실행하고자 하는 게임이 없음"
+	},
+	"69999" : {
+		"name" : "LC_ERROR_UNKNOWN", 
+		"description" : "정의되지 않은 에러."
+	},
+	"70000" : {
+		"name" : "PD_ERROR_", 
+		"description" : "연결 오류"
+	}
+}

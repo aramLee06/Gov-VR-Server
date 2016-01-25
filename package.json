@@ -1,0 +1,13 @@
+{
+  "name": "GamePartyServer",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node gp_roomserver.js"
+  },
+  "dependencies": {
+    "async": "^1.5.2",
+    "log4js": "^0.6.29",
+    "sm-log": "^2.0.0"
+  }
+}

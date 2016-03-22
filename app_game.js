@@ -6,30 +6,36 @@
  * @author Dongju Jung <lostcode7@gmaul.com>
  */
 
-// Module Load
+// TCP Module Load
 let net = require("net")
-	,redis = require("redis")
-	,uuid = require("node-uuid")
 	,SocketManager = require("./lib/utilz/socketManager.js")
 	,parse = require("./lib/protocol/parser.js")
 
+// REST Module Load
+let express = require('express')
+    ,path = require('path')
+    ,logger = require('morgan')
+    ,cookieParser = require('cookie-parser')
+    ,bodyParser = require('body-parser')
+    ,debug = require('debug')('RestServerNew:server')
+	,http = require('http')
+	,UIDMaker = require('./lib/utilz/uid.js')
+
 // Config Load
 let config = require("./config/server.json")
-let redisConfig = require("./config/redis.json")
 
 // Instance Create
-let publisher = redis.createClient()
 let socketManager = new SocketManager(0)
+let uidMaker = new UIDMaker()
 
 let message = require("./lib/message.js")
 
-function SocketInit(){
+function SocketInit() {
 	// Create TCP listen server
 	let server = net.createServer()
 
 	server.on('connection', (socket) => {
 		// LOG_TODO : 소켓 접속 기록 남기기
-
 		socket.setKeepAlive(true, 3000)
 
 		// let uuid = uuid.v4()
@@ -38,25 +44,16 @@ function SocketInit(){
 		socket.on('data', (buffer) => {
 			while(buffer.length > 0){
 				try {
-					let result, data
+					let result = parse(buffer)
+					let data = result.data
 
-					result = parse(buffer);
+					buffer = result.next
 
-					buffer = result.next_buffer;
-					data = result.data;
-
-					// TODO : if dev mode then log
 					process.nextTick(() => {
-						if(data.cmd === "join") {
-							//console.dir(data)
-							message.join(socket, data)
-						} else {
-							let json = JSON.stringify(data)
-							publisher.publish(redisConfig.channel, json)
-						}
+						console.log(data)
+						message.process(socket, data);
 					})
 				} catch (e) {
-					// TODO : ERROR 몽고디비에 저장 
 					console.log(e)
 					break;
 				}
@@ -64,7 +61,7 @@ function SocketInit(){
 		})
 
 		socket.on('error', (err) => {
-			// TODO : ERROR 몽고디비에 저장 
+			// TODO : ERROR 몽고디비에 저장
 		})
 
 		socket.on('close', () => {
@@ -72,29 +69,127 @@ function SocketInit(){
 		})
 	})
 
-	server.listen(config.port)
+	server.listen(config.tcp_port)
 }
 
-function SubscribeInit(){
-	let subscriber = redis.createClient()
+function RestInit() {
+	let app = express()
 
-	subscriber.on('message', (channel, msg) => {
-		console.log(msg)
-		let data = JSON.parse(msg)
-		// let result = parse(new Buffer(msg, 'ascii'))
-		// let data = result.data
-		console.dir("데이터 : ", data)
-		process.nextTick(() => {
-			message.process(data)
-		})
+	app.use(logger('dev'))
+	app.use(bodyParser.json())
+	app.use(bodyParser.urlencoded({ extended: false }))
+	app.use(cookieParser())
+	app.use(express.static(path.join(__dirname, 'public')))
+
+	app.all('/*', function(req, res, next){
+		res.header("Access-Control-Allow-Origin", "*")
+		res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+		res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key')
+		next()
 	})
 
-	subscriber.subscribe(redisConfig.channel)
+	// app.use("/room", router.room)
+	// app.use("/user", router.user)
+	// app.use("/gamedata", router.gamedata)
+
+	app.get("/uid", (req, res) => {
+		let uuid = uidMaker.make()
+		res.end(uuid + "")
+	})
+
+	// catch 404 and forward to error handler
+	app.use(function(req, res, next) {
+		var err = new Error('Not Found')
+		err.status = 404
+		next(err)
+	})
+
+	/**
+	 * Get port from environment and store in Express.
+	 */
+
+	let port = normalizePort(config.rest_port);
+	app.set('port', port);
+
+	/**
+	 * Create HTTP server.
+	 */
+
+	let server = http.createServer(app);
+
+	/**
+	 * Listen on provided port, on all network interfaces.
+	 */
+
+	server.listen(port);
+	server.on('error', onError);
+	server.on('listening', onListening);
+
+	/**
+	 * Normalize a port into a number, string, or false.
+	 */
+
+	function normalizePort(val) {
+	  var port = parseInt(val, 10);
+
+	  if (isNaN(port)) {
+	    // named pipe
+	    return val;
+	  }
+
+	  if (port >= 0) {
+	    // port number
+	    return port;
+	  }
+
+	  return false;
+	}
+
+	/**
+	 * Event listener for HTTP server "error" event.
+	 */
+
+	function onError(error) {
+	  if (error.syscall !== 'listen') {
+	    throw error;
+	  }
+
+	  var bind = typeof port === 'string'
+	    ? 'Pipe ' + port
+	    : 'Port ' + port;
+
+	  // handle specific listen errors with friendly messages
+	  switch (error.code) {
+	    case 'EACCES':
+	      console.error(bind + ' requires elevated privileges');
+	      process.exit(1);
+	      break;
+	    case 'EADDRINUSE':
+	      console.error(bind + ' is already in use');
+	      process.exit(1);
+	      break;
+	    default:
+	      throw error;
+	  }
+	}
+
+	/**
+	 * Event listener for HTTP server "listening" event.
+	 */
+
+	function onListening() {
+	  var addr = server.address();
+	  var bind = typeof addr === 'string'
+	    ? 'pipe ' + addr
+	    : 'port ' + addr.port;
+	  debug('Listening on ' + bind);
+	}
+
 }
 
 function Init(){
 	SocketInit()
-	SubscribeInit()
+	RestInit()
 }
 
 Init()

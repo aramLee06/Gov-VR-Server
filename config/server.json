@@ -1,4 +1,4 @@
 {
-	"tcp_port" : "3500"
-	,"rest_port" : "3510"
+	"tcp_port" : "5010"
+	,"rest_port" : "5000"
 }

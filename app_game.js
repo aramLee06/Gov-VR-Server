@@ -25,7 +25,7 @@ let express = require('express')
 let config = require("./config/server.json")
 
 // Instance Create
-let socketManager = new SocketManager(0)
+let socketManager = new SocketManager()
 let uidMaker = new UIDMaker()
 
 let message = require("./lib/message.js")
@@ -38,7 +38,18 @@ function SocketInit() {
 		// LOG_TODO : 소켓 접속 기록 남기기
 		socket.setKeepAlive(true, 3000)
 
-		// let uuid = uuid.v4()
+		if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.2") {
+			console.log("Red Tank")
+			socketManager._hw.set(3, socket)
+		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.3") {
+			console.log("Blue Tank")
+			socketManager._hw.set(0, socket)
+		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.4") {
+			console.log("Blue Tank")
+			socketManager._hw.set(0, socket)
+		}
+
+ 		// let uuid = uuid.v4()
 		// socketManager.addSocket(socket, uuid)
 
 		socket.on('data', (buffer) => {

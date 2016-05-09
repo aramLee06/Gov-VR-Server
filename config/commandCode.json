@@ -13,7 +13,7 @@
 			,"cmd" : "move_and_rotate"
 		}
 		,"3" : {
-			"len" : 25
+			"len" : 27
 			,"cmd" : "shoot"
 		}
 		,"4" : {

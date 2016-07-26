@@ -36,15 +36,16 @@ function SocketInit() {
 
 	server.on('connection', (socket) => {
 		// LOG_TODO : 소켓 접속 기록 남기기
-		socket.setKeepAlive(true, 3000)
+		socket.setKeepAlive(true, 5000)
 
-		if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.2") {
+		console.log(socket.remoteAddress.replace("::ffff:", "") + " hw")
+		if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.101") {
 			console.log("Red Tank")
 			socketManager._hw.set(3, socket)
-		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.3") {
+		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.102") {
 			console.log("Blue Tank")
 			socketManager._hw.set(0, socket)
-		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.4") {
+		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.103") {
 			console.log("Blue Tank")
 			socketManager._hw.set(0, socket)
 		}
@@ -61,7 +62,7 @@ function SocketInit() {
 					buffer = result.next
 
 					process.nextTick(() => {
-						console.log(data)
+						//console.log(data)
 						message.process(socket, data);
 					})
 				} catch (e) {

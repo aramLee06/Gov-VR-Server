@@ -44,6 +44,14 @@
 			"len" : 1
 			,"cmd" : "loading_success"
 		}
+		,"11" : {
+			"len" : 1
+			,"cmd" : "emergency_stop"
+		}
+		,"12" : {
+			"len" : 1
+			,"cmd" : "death_stop"
+		}
 	}
 	,"server2client" : {
 		"bind_success" : "0"
@@ -59,5 +67,7 @@
 		,"death" : "10"
 		,"soldout" : "11"
 		,"gun_fire" : "12"
+		,"emergency_stop" : "13"
+		,"death_stop" : "14"
 	}
 }

@@ -39,15 +39,18 @@ function SocketInit() {
 		socket.setKeepAlive(true, 5000)
 
 		console.log(socket.remoteAddress.replace("::ffff:", "") + " hw")
-		if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.101") {
+		if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.102") {
 			console.log("Red Tank")
 			socketManager._hw.set(3, socket)
-		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.102") {
+		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.109") {
 			console.log("Blue Tank")
 			socketManager._hw.set(0, socket)
-		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.103") {
-			console.log("Blue Tank")
-			socketManager._hw.set(0, socket)
+		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.108") {
+			console.log("Blue Drone")
+			socketManager._hw.set(1, socket)
+		} else if(socket.remoteAddress.replace("::ffff:", "") == "192.168.1.107") {
+			console.log("Desk Top")
+			socketManager._hw.set(1, socket)
 		}
 
  		// let uuid = uuid.v4()
